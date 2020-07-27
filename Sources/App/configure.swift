@@ -1,8 +1,10 @@
 import FluentSQLite
+import Leaf
 import Vapor
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
+    config.prefer(LeafRenderer.self, for: ViewRenderer.self)
     // Register providers first
     try services.register(FluentSQLiteProvider())
 
@@ -10,6 +12,9 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     let router = EngineRouter.default()
     try routes(router)
     services.register(router, as: Router.self)
+
+
+    try services.register(LeafProvider())
 
     // Register middleware
     var middlewares = MiddlewareConfig() // Create _empty_ middleware config
