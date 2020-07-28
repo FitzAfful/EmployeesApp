@@ -1,11 +1,12 @@
 import Vapor
 import Leaf
-// 1
+
 struct WebsiteController: RouteCollection {
 
     func boot(router: Router) throws {
         router.get(use: indexHandler)
         router.post(Employee.self, at: "index/add", use: createEmployeeHandler)
+        router.post("employees", Employee.parameter, "edit", use: updateEmployeeHandler)
     }
 
     func indexHandler(_ req: Request) throws -> Future<View> {
@@ -20,6 +21,16 @@ struct WebsiteController: RouteCollection {
         return employee.save(on: req).map(to: Response.self) { _ in
             return req.redirect(to: "/")
         }
+    }
+
+    func updateEmployeeHandler(_ req: Request) throws -> Future<Response> {
+        return try flatMap(to: Response.self, req.parameters.next(Employee.self), req.content.decode(Employee.self), { employee, updatedEmployee in
+            employee.name = updatedEmployee.name
+            employee.email = updatedEmployee.email
+            employee.phone = updatedEmployee.phone
+            employee.address = updatedEmployee.address
+            return employee.save(on: req).transform(to: req.redirect(to: "/"))
+        })
     }
 }
 
