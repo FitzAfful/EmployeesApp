@@ -5,8 +5,13 @@ struct WebsiteController: RouteCollection {
 
     func boot(router: Router) throws {
         router.get(use: indexHandler)
+        router.get("employees", Employee.parameter, use: employeeHandler)
         router.post(Employee.self, at: "index/add", use: createEmployeeHandler)
         router.post("employees", Employee.parameter, "edit", use: updateEmployeeHandler)
+    }
+
+    func employeeHandler(_ req: Request) throws -> Future<Employee> {
+      return try req.parameters.next(Employee.self)
     }
 
     func indexHandler(_ req: Request) throws -> Future<View> {
