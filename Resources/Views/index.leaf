@@ -308,9 +308,9 @@ $(document).ready(function(){
                         <td>#(employee.address)</td>
                         <td>#(employee.phone)</td>
 						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+							<a href="#editEmployeeModal-#(employee.id)" class="edit" data-target="#editEmployeeModal-#(employee.id)" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            <div id="editEmployeeModal" class="modal fade">
+                            <div id="editEmployeeModal-#(employee.id)" class="modal fade">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <form method="POST" action="/employees/#(employee.id)/edit">
