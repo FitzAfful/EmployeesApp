@@ -35,7 +35,8 @@ struct WebsiteController: RouteCollection {
     }
 
     func deleteEmployeeHandler(_ req: Request) throws -> Future<Response> {
-        return try req.parameters.next(Employee.self).delete(on: req).transform(to: req.redirect(to: "/")) }
+        return try req.parameters.next(Employee.self).delete(on: req).transform(to: req.redirect(to: "/"))
+    }
 }
 
 struct IndexContext: Encodable {
