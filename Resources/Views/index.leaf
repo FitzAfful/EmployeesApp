@@ -309,7 +309,8 @@ $(document).ready(function(){
                         <td>#(employee.phone)</td>
 						<td>
 							<a href="#editEmployeeModal-#(employee.id)" class="edit" data-target="#editEmployeeModal-#(employee.id)" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a href="#deleteEmployeeModal-#(employee.id)" data-target="#deleteEmployeeModal-#(employee.id)" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <!-- Edit Modal HTML -->
                             <div id="editEmployeeModal-#(employee.id)" class="modal fade">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -345,6 +346,27 @@ $(document).ready(function(){
                                 </div>
                             </div>
 						</td>
+                        <!-- Delete Modal HTML -->
+                        <div id="deleteEmployeeModal-#(employee.id)" class="modal fade">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="POST" action="/employees/#(employee.id)/delete">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete Employee</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to delete #(employee.name)</p>
+                                            <p class="text-warning"><small>This action cannot be undone.</small></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                            <input type="submit" class="btn btn-danger" value="Delete">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 					</tr>
                     }
 				</tbody>
@@ -390,9 +412,7 @@ $(document).ready(function(){
 		</div>
 	</div>
 </div>
-<!-- Edit Modal HTML -->
-
-<!-- Delete Modal HTML -->
+<!-- Delete Selected Modal HTML -->
 <div id="deleteEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
